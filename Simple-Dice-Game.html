@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+
+		<title>Simple Dice Game</title>
+		<style>
+    
+    *{
+    
+    margin: 0;
+    padding: 0;
+    font-familye: arial;
+    box-sizing: border-box;
+    
+    }
+    
+    :root{
+    
+    --bg: #f8f8f8;
+    
+    }
+    
+    body{
+    
+    background: var(--bg);
+    
+    }
+    
+    #loader{
+    
+    height: 100vh;
+    width: 100vw;
+    background: #3B444B;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 555;
+    transition: opacity 1s;
+    transition-delay: 2s;
+    
+    }
+    
+    #circle{
+    
+    height: 30vw;
+    width: 30vw;
+    border-radius: 20vw;
+    background: none;
+    border: 3vw solid #000;
+    border-top-color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    transition: opacity 0.4s;
+    transition-delay: 1.6s;
+    animation: 2s animate linear infinite;
+    
+    }
+    
+    @keyframes animate{
+    
+    from{
+    
+    transform: translate(-50%,-50%) rotate(0deg);
+    
+    }
+    
+    from{
+    
+    transform: translate(-50%,-50%) rotate(-360deg);
+    
+    }
+    
+    }
+    
+    #conatiner{
+    
+    height: 200px;
+    width: 700px;
+    background: var(--bg);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    
+    }
+    
+    #direction{
+    
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    top: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 40px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.8);
+    
+    }
+    
+    #dicebox{
+    
+    height: 120px;
+    width: 120px;
+    background: var(--bg);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    box-shadow: inset 4px 4px 6px rgba(255,255,255,0.8),inset -3px -3px 5px rgba(0,0,0,0.2), 5px 10px 20px rgba(0,0,0,0.3);
+    border-radius: 20px;
+    overflow: hidden;
+    
+    }
+    
+    #diceroll{
+    
+    width: 120px;
+    height: calc(120px * 6);
+    background: none;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    transition: all 0.5s;
+    
+    }
+    
+    #dice{
+    
+    width: 120px;
+    height: 120px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    
+    }
+    
+    #dicerow{
+    
+    background: none;
+    height: 30px;
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    
+    }
+    
+    #dicerow div{
+    
+    height: 30px;
+    width: 30px;
+    border-radius: 20px;
+    background: black;
+    
+    }
+    
+    #one,#two{
+    
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    background: var(--bg);
+    box-shadow: inset 5px 5px 8px rgba(255,255,255,0.8),inset -5px -5px 8px rgba(0,0,0,0.2), 5px 15px 30px rgba(0,0,0,0.3);
+    border-radius: 20px;
+    padding: 30px;
+    
+    }
+    
+    #one{
+    
+    left: 0;
+    
+    }
+    
+    #two{
+    
+    right: 0;
+    
+    }
+    
+    #one h3,#two h3{
+    
+    font-size: 22px;
+    color: #444;
+    text-transform: uppercase;
+    text-align: center;
+    height: 25px;
+    line-height: 25px;
+    
+    }
+    
+    #one h2,#two h2{
+    
+    color: #222;
+    font-size: 50px;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 75px;
+    
+    }
+    
+    #one button,#two button{
+    
+    height: 40px;
+    width: 140px;
+    text-transform: uppercase;
+    background: var(--bg);
+    border: none;
+    outline: none;
+    border-radius: 20px;
+    box-shadow: 3px 3px 5px rgba(0,0,0,0.2),-8px -8px 10px rgba(255,255,255,1);
+    font-size: 20px;
+    font-weight: bold;
+    color: navy;
+    
+    }
+    
+    #one button:active,#two button:active{
+    
+    box-shadow: inset 3px 3px 5px rgba(0,0,0,0.2),inset -8px -8px 10px rgba(255,255,255,1);
+    
+    }
+    
+    
+		</style>
+	</head>
+	<body>
+		<div id="loader">
+			<div id="circle"></div>
+		</div>
+		<div id="conatiner">
+			<div id="direction">Player-1 Turn</div>
+			<div id="dicebox">
+				<div id="diceroll">
+					<div id="dice">
+						<div id="dicerow">
+							<div id="point"></div>
+						</div>
+					</div>
+					<div id="dice">
+						<div id="dicerow">
+							<div id="point"></div>
+							<div id="point"></div>
+						</div>
+					</div>
+					<div id="dice">
+						<div id="dicerow">
+							<div id="point"></div>
+						</div>
+						<div id="dicerow">
+							<div id="point"></div>
+						</div>
+						<div id="dicerow">
+							<div id="point"></div>
+						</div>
+					</div>
+					<div id="dice">
+						<div id="dicerow">
+							<div id="point"></div>
+							<div id="point"></div>
+						</div>
+						<div id="dicerow">
+							<div id="point"></div>
+							<div id="point"></div>
+						</div>
+					</div>
+					<div id="dice">
+						<div id="dicerow">
+							<div id="point"></div>
+							<div id="point"></div>
+						</div>
+						<div id="dicerow">
+							<div id="point"></div>
+						</div>
+						<div id="dicerow">
+							<div id="point"></div>
+							<div id="point"></div>
+						</div>
+					</div>
+					<div id="dice">
+						<div id="dicerow">
+							<div id="point"></div>
+							<div id="point"></div>
+						</div>
+						<div id="dicerow">
+							<div id="point"></div>
+							<div id="point"></div>
+						</div>
+						<div id="dicerow">
+							<div id="point"></div>
+							<div id="point"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="one">
+				<h3>Player-1</h3>
+				<h2 id="score1">0</h2>
+				<button id="btn1">turn</button>
+			</div>
+			<div id="two">
+				<h3>Player-2</h3>
+				<h2 id="score2">0</h2>
+				<button id="btn2" disabled="disabled">turn</button>
+			</div>
+		</div>
+		<script>
+    
+    var btn1 = document.querySelector("#btn1");
+    var btn2 = document.querySelector("#btn2");
+    var monitor = document.querySelector("#direction");
+    var diceroll = document.querySelector("#diceroll");
+    var score1 = document.querySelector("#score1");
+    var score2 = document.querySelector("#score2");
+    
+    
+   
+    window.onload = function(){
+    
+    loader.style.opacity="0";
+    circle.style.opacity="0";
+    
+    setTimeout(function(){
+    
+  loader.style.display="none";
+    circle.style.display="none";
+    
+    },3100)
+    
+    }
+    
+    btn1.addEventListener("click",function(){
+    
+    var player1 = Math.floor(Math.random()*6)+1;
+    score1.innerHTML = player1;
+    diceroll.style.top = (1-player1)*120+"px";
+    btn1.disabled = true;
+    btn2.disabled = false;
+    monitor.innerHTML = "Player-2 Turn";
+    
+    
+    });
+    
+    btn2.addEventListener("click",function(){
+    
+    var player2 = Math.floor(Math.random()*6)+1;
+    
+    score2.innerHTML = player2;
+    diceroll.style.top = (1-player2)*120+"px";
+    btn1.disabled = true;
+    btn2.disabled = true;
+    
+    if(score1.innerHTML > score2.innerHTML){
+    
+    monitor.innerHTML = "Player-1 is the winner";
+    
+    }
+    
+    else if(score2.innerHTML > score1.innerHTML){
+    
+    monitor.innerHTML = "Player-2 is the winner";
+    
+    }   
+    
+    if(score1.innerHTML == score2.innerHTML){
+    
+    monitor.innerHTML = "The match is draw!";
+    
+    }
+    
+    });
+    dicebox.addEventListener("click",function(){
+    
+    monitor.innerHTML = "Player-1 turn";
+    score1.innerHTML = 0;
+    score2.innerHTML = 0;
+    diceroll.style.top = "0px";
+    btn1.disabled = false;
+    btn2.disabled = true;
+    
+    });
+    
+    
+		</script>
+	</body>
+</html>
